@@ -3,7 +3,7 @@
 //   MEMBERS_PASSWORD  (required) - the shared members password
 //   MEMBERS_USER      (optional) - username, defaults to "members"
 // If MEMBERS_PASSWORD is missing, the build FAILS on purpose, so the
-// /members area can never deploy unprotected by accident.
+// portal can never deploy unprotected by accident.
 import { writeFileSync, existsSync } from "node:fs";
 
 const password = process.env.MEMBERS_PASSWORD;
@@ -15,15 +15,16 @@ if (!existsSync(new URL("../dist", import.meta.url))) {
 }
 if (!password) {
   console.error("\n[gen-headers] MEMBERS_PASSWORD is not set.");
-  console.error("[gen-headers] Refusing to build, because /members would deploy UNPROTECTED.");
+  console.error("[gen-headers] Refusing to build, because the portal would deploy UNPROTECTED.");
   console.error("[gen-headers] Set MEMBERS_PASSWORD in Netlify > Site configuration > Environment variables, then redeploy.\n");
   process.exit(1);
 }
+// Protect the portal and its files. The /members landing page stays public.
 const contents = `# AUTO-GENERATED at build time. Do not edit by hand.
-/members
+/members/portal
   Basic-Auth: ${user}:${password}
-/members/*
+/members/portal/*
   Basic-Auth: ${user}:${password}
 `;
 writeFileSync(new URL("../dist/_headers", import.meta.url), contents);
-console.log(`[gen-headers] Wrote dist/_headers protecting /members (user: ${user})`);
+console.log(`[gen-headers] Wrote dist/_headers protecting /members/portal (user: ${user})`);

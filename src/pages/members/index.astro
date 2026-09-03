@@ -1,26 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
-
-// Members-only documents. Files live in /public/members/ so they sit behind
-// the same password as this page. To add one, drop the PDF in that folder
-// and add an entry here.
-const docs = [
-  {
-    title: "Benefits Summary",
-    period: "2026",
-    desc: "Health, dental, and vision coverage at a glance, with what changed this year.",
-    file: "/members/benefits-summary.pdf",
-  },
-  {
-    title: "Open Enrollment Guide",
-    period: "2026",
-    desc: "How and when to enroll or change your elections, with the forms you need.",
-    file: "/members/open-enrollment-2026.pdf",
-  },
-];
 ---
 
-<Base title="Members" description="Members-only resources for USW Local 5025-02.">
+<Base title="Members" description="Members-only resources for USW Local 5025-02. Request access through the contact form.">
   <section class="pagehead">
     <div class="wrap">
       <h1>Members area</h1>
@@ -28,25 +10,27 @@ const docs = [
     </div>
   </section>
 
-  <div class="wrap bay">
-    <div class="docs">
-      {
-        docs.map((d) => (
-          <article class="doc">
-            <div class="doc__main">
-              <p class="doc__period">{d.period}</p>
-              <h2 class="doc__title">{d.title}</h2>
-              <p class="doc__desc">{d.desc}</p>
-            </div>
-            <div class="doc__action">
-              <a href={d.file} class="btn btn--gold" download>Download PDF</a>
-              <a href={d.file} class="doc__view" target="_blank" rel="noopener">View in browser</a>
-            </div>
-          </article>
-        ))
-      }
+  <div class="wrap bay gate">
+    <div class="gate__card">
+      <h2 class="gate__h">This section is password-protected</h2>
+      <p>
+        The members area holds benefits documents and other resources meant for
+        Local 5025-02 members only. You'll need the members password to open it.
+      </p>
+      <div class="gate__actions">
+        <a href="/members/portal" class="btn btn--gold">Enter the members area</a>
+        <a href="/contact" class="btn btn--ghost">Request the password</a>
+      </div>
     </div>
-    <p class="docs__note">Need something added here? <a href="/contact">Ask a rep</a>.</p>
+
+    <aside class="gate__side">
+      <h3 class="gate__side-h">Don't have the password?</h3>
+      <p>
+        Request it through the <a href="/contact">contact form</a> and we'll get
+        it to you. Pick <strong>Request members password</strong> as the topic so
+        it reaches the right person, and be sure to include an email we can reply to.
+      </p>
+    </aside>
   </div>
 </Base>
 
@@ -54,14 +38,13 @@ const docs = [
   .pagehead { background: var(--navy); color: #fff; border-bottom: 4px solid var(--gold); padding-block: clamp(2rem, 5vw, 3.2rem); }
   .pagehead h1 { margin: 0 0 0.3rem; }
   .pagehead p { margin: 0; color: #dce7ef; }
-  .docs { display: grid; gap: 1.1rem; max-width: 860px; }
-  .doc { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--gold); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
-  .doc__main { flex: 1 1 320px; }
-  .doc__period { font-family: var(--display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel-soft); margin: 0 0 0.2rem; }
-  .doc__title { margin: 0 0 0.5rem; font-size: var(--step-2); }
-  .doc__desc { margin: 0; color: var(--ink); max-width: 60ch; }
-  .doc__action { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-  .doc__view { font-family: var(--display); font-weight: 600; font-size: 0.9rem; color: var(--navy); text-decoration: none; }
-  .doc__view:hover { color: var(--gold-deep); }
-  .docs__note { margin-top: 2rem; color: var(--steel); }
+  .gate { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  .gate__card { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--gold); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2rem); }
+  .gate__h { margin: 0 0 0.8rem; font-size: var(--step-2); }
+  .gate__card p { color: var(--ink); max-width: 58ch; }
+  .gate__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+  .gate__side { background: var(--paper); border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 1.3rem 1.4rem; }
+  .gate__side-h { font-size: var(--step-1); margin: 0 0 0.5rem; }
+  .gate__side p { color: var(--steel); margin: 0; }
+  @media (max-width: 780px) { .gate { grid-template-columns: 1fr; } }
 </style>
