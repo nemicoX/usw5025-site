@@ -1,5 +1,5 @@
 ---
-title: "September Membership Meeting"
+title: "September Meeting"
 date: 2026-09-03
 summary: "Our September meeting is Monday, Sept 14th at 5:30 PM at Tangier Bar & Pizza in Struthers."
 pinned: true
