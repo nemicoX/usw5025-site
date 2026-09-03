@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="6" fill="#01293f"/>
+  <rect x="0" y="52" width="64" height="12" fill="#f2a900"/>
+  <text x="32" y="40" font-family="Arial Narrow, Arial, sans-serif" font-weight="bold"
+        font-size="30" fill="#f2a900" text-anchor="middle" letter-spacing="-1">USW</text>
+</svg>

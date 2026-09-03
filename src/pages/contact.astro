@@ -1,0 +1,145 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Contact" description="Reach a rep from USW Local 5025-02. Questions, grievances, or ideas.">
+  <section class="pagehead">
+    <div class="wrap">
+      <h1>Contact a rep</h1>
+      <p>Questions, grievances, or ideas. This goes straight to the local's officers.</p>
+    </div>
+  </section>
+
+  <div class="wrap bay form-wrap">
+    <!--
+      Netlify Forms: the data-netlify attribute + hidden form-name field
+      let Netlify capture submissions with no backend. Submissions land in
+      your Netlify dashboard and can be emailed to you (set that up under
+      Forms > notifications). The honeypot field blocks basic spam bots.
+    -->
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/contact/thanks"
+      class="form"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hp">
+        <label>Leave this field empty: <input name="bot-field" /></label>
+      </p>
+
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" required />
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" type="tel" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="topic">What's this about?</label>
+        <select id="topic" name="topic">
+          <option>General question</option>
+          <option>Grievance or workplace issue</option>
+          <option>Contract question</option>
+          <option>Benefits</option>
+          <option>Idea or suggestion</option>
+          <option>Something else</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--gold">Send to the local</button>
+    </form>
+
+    <aside class="side">
+      <h2 class="side__h">Other ways to reach us</h2>
+      <p>
+        Bring it up at the monthly membership meeting, or talk to your steward
+        on the floor. Anything submitted here is seen by the local's officers.
+      </p>
+      <p class="side__small">
+        For an emergency or an injury, follow plant safety procedures first, then
+        let us know.
+      </p>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .pagehead {
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 4px solid var(--gold);
+    padding-block: clamp(2rem, 5vw, 3.2rem);
+  }
+  .pagehead h1 { margin: 0 0 0.3rem; }
+  .pagehead p { margin: 0; color: #dce7ef; }
+
+  .form-wrap {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .form {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.3rem, 3vw, 2rem);
+  }
+  .field { margin-bottom: 1.1rem; }
+  .field label {
+    display: block;
+    font-family: var(--display);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--navy);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    font-family: var(--body);
+    font-size: var(--step-0);
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--ink);
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--navy);
+    outline: 2px solid var(--gold);
+    outline-offset: 0;
+  }
+  .field textarea { resize: vertical; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .hp { display: none; }
+
+  .side__h { font-size: var(--step-1); margin-bottom: 0.6rem; }
+  .side { background: var(--paper); border-left: 4px solid var(--gold); padding: 1.3rem 1.4rem; border-radius: var(--radius); }
+  .side p { color: var(--steel); }
+  .side__small { font-size: 0.9rem; }
+
+  @media (max-width: 780px) {
+    .form-wrap { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+</style>

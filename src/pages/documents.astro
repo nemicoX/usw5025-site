@@ -1,0 +1,109 @@
+---
+import Base from "../layouts/Base.astro";
+
+// To add or change a document, edit this list and drop the PDF in /public/documents/.
+const docs = [
+  {
+    id: "cba",
+    title: "Collective Bargaining Agreement",
+    period: "2024–2027",
+    desc: "The current contract between USW Local 5025-02 and Fireline, Inc. Wages, hours, benefits, seniority, and the grievance procedure.",
+    file: "/documents/cba-2024-2027.pdf",
+    featured: true,
+  },
+  {
+    id: "elections",
+    title: "USW Elections Manual",
+    period: "Reference",
+    desc: "The International's manual on nominating and electing local union officers.",
+    file: "/documents/usw-elections-manual.pdf",
+    featured: false,
+  },
+];
+---
+
+<Base title="Documents" description="The contract, forms, and reference documents for USW Local 5025-02 members.">
+  <section class="pagehead">
+    <div class="wrap">
+      <h1>Documents &amp; resources</h1>
+      <p>Your contract and the reference material you need, in one place.</p>
+    </div>
+  </section>
+
+  <div class="wrap bay">
+    <div class="docs">
+      {
+        docs.map((d) => (
+          <article id={d.id} class:list={["doc", { "doc--featured": d.featured }]}>
+            <div class="doc__main">
+              <p class="doc__period">{d.period}</p>
+              <h2 class="doc__title">{d.title}</h2>
+              <p class="doc__desc">{d.desc}</p>
+            </div>
+            <div class="doc__action">
+              <a href={d.file} class="btn btn--gold" download>
+                Download PDF
+              </a>
+              <a href={d.file} class="doc__view" target="_blank" rel="noopener">
+                View in browser
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="docs__note">
+      Looking for something that isn't here? <a href="/contact">Ask a rep</a> and
+      we'll get it posted.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .pagehead {
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 4px solid var(--gold);
+    padding-block: clamp(2rem, 5vw, 3.2rem);
+  }
+  .pagehead h1 { margin: 0 0 0.3rem; }
+  .pagehead p { margin: 0; color: #dce7ef; }
+
+  .docs { display: grid; gap: 1.1rem; max-width: 860px; }
+  .doc {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--steel);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+  }
+  .doc--featured { border-left-color: var(--gold); border-left-width: 6px; }
+  .doc__main { flex: 1 1 320px; }
+  .doc__period {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel-soft);
+    margin: 0 0 0.2rem;
+  }
+  .doc__title { margin: 0 0 0.5rem; font-size: var(--step-2); }
+  .doc__desc { margin: 0; color: var(--ink); max-width: 60ch; }
+  .doc__action { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  .doc__view {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .doc__view:hover { color: var(--gold-deep); }
+  .docs__note { margin-top: 2rem; color: var(--steel); }
+</style>

@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import AnnouncementCard from "../../components/AnnouncementCard.astro";
+
+const all = await getCollection("announcements");
+const sorted = all.sort((a, b) => {
+  if (a.data.pinned !== b.data.pinned) return a.data.pinned ? -1 : 1;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+---
+
+<Base title="News" description="Announcements and updates from USW Local 5025-02.">
+  <section class="pagehead">
+    <div class="wrap">
+      <h1>News</h1>
+      <p>Announcements and updates for members of Local 5025-02.</p>
+    </div>
+  </section>
+
+  <div class="wrap bay">
+    {
+      sorted.length > 0 ? (
+        <div class="list">
+          {sorted.map((a) => (
+            <AnnouncementCard
+              href={`/news/${a.id}`}
+              title={a.data.title}
+              date={a.data.date}
+              summary={a.data.summary}
+              pinned={a.data.pinned}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">No announcements posted yet. Check back soon.</p>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .pagehead {
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 4px solid var(--gold);
+    padding-block: clamp(2rem, 5vw, 3.2rem);
+  }
+  .pagehead h1 { margin: 0 0 0.3rem; }
+  .pagehead p { margin: 0; color: #dce7ef; }
+  .list { display: grid; gap: 1rem; max-width: 800px; }
+  .empty {
+    background: var(--card);
+    border: 1px dashed var(--line);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    color: var(--steel);
+  }
+</style>

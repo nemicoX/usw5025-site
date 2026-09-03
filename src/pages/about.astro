@@ -1,0 +1,104 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="About" description="About USW Local 5025-02 at Fireline, Inc. in Youngstown, Ohio.">
+  <section class="pagehead">
+    <div class="wrap">
+      <h1>About the local</h1>
+      <p>Who we are and how the local works.</p>
+    </div>
+  </section>
+
+  <div class="wrap bay about">
+    <div class="about__body">
+      <p class="lede">
+        USW Local 5025-02 represents the workers of Fireline, Inc. in Youngstown,
+        Ohio, the people who make the ceramic crucibles that hold molten metal.
+      </p>
+
+      <div class="marker">What the local does</div>
+      <p>
+        We negotiate and enforce the contract, handle grievances, and stand
+        together on wages, benefits, safety, and fair treatment on the floor.
+        Every member has a voice, and the officers answer to the membership.
+      </p>
+
+      <div class="marker">Officers &amp; stewards</div>
+      <p>
+        Add your officer and steward list here. Names, positions, and the best
+        way to reach each person. Until then, use the
+        <a href="/contact">contact page</a> to reach the local.
+      </p>
+
+      <div class="marker">Meetings</div>
+      <p>
+        The membership meeting is where decisions get made. Times and locations
+        are posted under <a href="/news">News</a>. Show up, that's how a local
+        stays strong.
+      </p>
+    </div>
+
+    <aside class="factbox">
+      <h2 class="factbox__h">At a glance</h2>
+      <dl>
+        <dt>Local</dt>
+        <dd>USW 5025-02</dd>
+        <dt>Employer</dt>
+        <dd>Fireline, Inc.</dd>
+        <dt>Location</dt>
+        <dd>Youngstown, Ohio</dd>
+        <dt>Contract</dt>
+        <dd><a href="/documents#cba">2024–2027 CBA</a></dd>
+        <dt>International</dt>
+        <dd><a href="https://www.usw.org" rel="noopener">United Steelworkers</a></dd>
+      </dl>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .pagehead {
+    background: var(--navy);
+    color: #fff;
+    border-bottom: 4px solid var(--gold);
+    padding-block: clamp(2rem, 5vw, 3.2rem);
+  }
+  .pagehead h1 { margin: 0 0 0.3rem; }
+  .pagehead p { margin: 0; color: #dce7ef; }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .lede { font-size: var(--step-1); color: var(--ink); margin-bottom: 2rem; }
+  .about .marker { margin-top: 2rem; }
+
+  .factbox {
+    background: var(--navy);
+    color: #fff;
+    border-radius: var(--radius);
+    border-top: 5px solid var(--gold);
+    padding: 1.5rem 1.6rem;
+  }
+  .factbox__h { color: #fff; font-size: var(--step-1); margin-bottom: 1rem; }
+  .factbox dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1rem; }
+  .factbox dt {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    align-self: center;
+  }
+  .factbox dd { margin: 0; color: #e6eef4; }
+  .factbox a { color: #fff; }
+  .factbox a:hover { color: var(--gold); }
+
+  @media (max-width: 780px) {
+    .about { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <p class="foot__local">5025-02</p>
+      <p class="foot__org">United Steelworkers</p>
+      <p class="foot__note">
+        Representing the workers of Fireline, Inc.<br />
+        Youngstown, Ohio
+      </p>
+    </div>
+
+    <div>
+      <h4 class="foot__head">Union meetings</h4>
+      <p class="foot__note">
+        Monthly membership meeting.<br />
+        Time and place posted under News.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="foot__head">Reach us</h4>
+      <p class="foot__note">
+        <a href="/contact">Contact a rep</a><br />
+        <a href="/documents">Contract &amp; forms</a>
+      </p>
+    </div>
+
+    <div>
+      <h4 class="foot__head">USW</h4>
+      <p class="foot__note">
+        <a href="https://www.usw.org" rel="noopener">usw.org</a><br />
+        International union
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap foot__base">
+    <p>© {year} USW Local 5025-02. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--navy-deep);
+    color: #cdd9e2;
+    border-top: 4px solid var(--gold);
+    margin-top: var(--bay);
+  }
+  .foot__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding-block: var(--bay);
+  }
+  .foot__local {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin: 0;
+    line-height: 1;
+  }
+  .foot__org {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0.2rem 0 0.9rem;
+  }
+  .foot__head {
+    color: #fff;
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+  }
+  .foot__note { margin: 0; font-size: 0.95rem; line-height: 1.55; }
+  .foot a { color: #cdd9e2; }
+  .foot a:hover { color: var(--gold); }
+  .foot__base {
+    border-top: 1px solid var(--navy-line);
+    padding-block: 1.1rem;
+  }
+  .foot__base p { margin: 0; font-size: 0.85rem; color: var(--steel-soft); }
+
+  @media (max-width: 720px) {
+    .foot__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+</style>

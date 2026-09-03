@@ -1,0 +1,138 @@
+/* ==========================================================================
+   USW Local 5025-02 — design tokens + base styles
+   Steel navy, molten gold, cool grays. Industrial, member-first, squared-off.
+   ========================================================================== */
+
+:root {
+  /* Color */
+  --navy:        #013a5c; /* primary, deepened from the old site's #02537e */
+  --navy-deep:   #01293f; /* masthead + footer */
+  --navy-line:   #0a4e78; /* borders on navy */
+  --gold:        #f2a900; /* molten-metal accent, sparing use */
+  --gold-deep:   #cc8f00; /* gold hover / text-on-light */
+  --steel:       #46545e; /* secondary text */
+  --steel-soft:  #7c8891; /* muted labels */
+  --paper:       #eef1f3; /* cool page background */
+  --card:        #ffffff;
+  --ink:         #14181b; /* body text */
+  --line:        #d5dbe0; /* hairline borders on light */
+
+  /* Type */
+  --display: "Barlow Semi Condensed", system-ui, sans-serif;
+  --body: "Barlow", system-ui, sans-serif;
+
+  /* Scale */
+  --step--1: 0.86rem;
+  --step-0:  1.0625rem;
+  --step-1:  1.35rem;
+  --step-2:  1.85rem;
+  --step-3:  2.6rem;
+  --step-4:  clamp(2.9rem, 6vw, 4.6rem);
+
+  /* Space */
+  --gap: 1.25rem;
+  --bay: clamp(2.5rem, 6vw, 5rem); /* vertical section rhythm */
+  --edge: clamp(1.1rem, 4vw, 2.5rem); /* page side padding */
+  --wrap: 1140px;
+  --radius: 3px; /* squared, not soft */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  line-height: 1.05;
+  margin: 0 0 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+h1 { font-size: var(--step-4); font-weight: 800; }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); }
+
+p { margin: 0 0 1rem; max-width: 68ch; }
+
+a { color: var(--navy); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover { color: var(--gold-deep); }
+
+img { max-width: 100%; display: block; }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--bay) 0; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--edge); }
+
+.bay { padding-block: var(--bay); }
+
+/* Section eyebrow: a short gold rule + label, used as a structural marker */
+.marker {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--step-1);
+  color: var(--navy);
+  margin-bottom: 1.4rem;
+}
+.marker::before {
+  content: "";
+  width: 34px;
+  height: 5px;
+  background: var(--gold);
+  flex: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--step-0);
+  line-height: 1;
+  padding: 0.85rem 1.3rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--navy);
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.btn:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+
+.btn--gold { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+.btn--gold:hover { background: var(--gold-deep); border-color: var(--gold-deep); color: var(--navy-deep); }
+
+.btn--ghost { background: transparent; color: var(--navy); }
+.btn--ghost:hover { background: var(--navy); color: #fff; }
+
+/* Accessibility: visible focus */
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--gold); color: var(--navy-deep);
+  padding: 0.6rem 1rem; font-family: var(--display); font-weight: 600;
+  z-index: 100;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

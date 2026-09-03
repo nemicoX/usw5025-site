@@ -1,0 +1,27 @@
+# Sveltia CMS configuration.
+# Editing here writes markdown to src/content/announcements/ and commits to GitHub.
+
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/usw5025-site   # <-- change to your repo
+  branch: main
+
+# Where uploaded images go
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: announcements
+    label: "News / Announcements"
+    label_singular: "Announcement"
+    folder: "src/content/announcements"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: date, label: "Date", widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - { name: summary, label: "Summary (shown in the list)", widget: text }
+      - { name: pinned, label: "Pin to top", widget: boolean, default: false, required: false }
+      - { name: body, label: "Body", widget: markdown }

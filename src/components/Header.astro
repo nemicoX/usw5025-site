@@ -1,0 +1,130 @@
+---
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/news", label: "News" },
+  { href: "/documents", label: "Documents" },
+  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
+];
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <a href="/" class="brand" aria-label="USW Local 5025-02 home">
+      <span class="brand__local">5025-02</span>
+      <span class="brand__org">United Steelworkers</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+    <label for="nav-toggle" class="nav-button" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="nav" aria-label="Primary">
+      {
+        nav.map((item) => {
+          const href = item.href.replace(/\/$/, "") || "/";
+          const active = href === "/" ? path === "/" : path.startsWith(href);
+          return (
+            <a href={item.href} class:list={["nav__link", { "is-active": active }]}>
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .masthead {
+    background: var(--navy-deep);
+    border-bottom: 4px solid var(--gold);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .masthead__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.7rem;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+    color: #fff;
+  }
+  .brand__local {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.9rem;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+  }
+  .brand__org {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #cdd9e2;
+    margin-top: 0.15rem;
+  }
+
+  .nav {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .nav__link {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #dfe8ee;
+    text-decoration: none;
+    padding: 0.45rem 0.75rem;
+    border-radius: 3px;
+    border-bottom: 3px solid transparent;
+  }
+  .nav__link:hover { color: #fff; background: var(--navy-line); }
+  .nav__link.is-active { color: #fff; border-bottom-color: var(--gold); }
+
+  .nav-button { display: none; }
+
+  @media (max-width: 720px) {
+    .nav-button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+    }
+    .nav-button span {
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .nav {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      flex-direction: column;
+      gap: 0;
+      background: var(--navy-deep);
+      border-bottom: 4px solid var(--gold);
+      padding: 0.5rem var(--edge) 1rem;
+    }
+    .nav-toggle:checked ~ .nav { display: flex; }
+    .nav__link { padding: 0.7rem 0.4rem; font-size: 1.2rem; }
+    .nav__link.is-active { border-bottom: none; border-left: 3px solid var(--gold); padding-left: 0.7rem; }
+  }
+</style>

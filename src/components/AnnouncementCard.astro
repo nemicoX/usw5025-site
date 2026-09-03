@@ -1,0 +1,69 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  date: Date;
+  summary: string;
+  pinned?: boolean;
+}
+const { href, title, date, summary, pinned = false } = Astro.props;
+const dateStr = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const dateISO = date.toISOString().slice(0, 10);
+---
+
+<article class="card">
+  <div class="card__meta">
+    <time datetime={dateISO}>{dateStr}</time>
+    {pinned && <span class="card__pin">Pinned</span>}
+  </div>
+  <h3 class="card__title"><a href={href}>{title}</a></h3>
+  <p class="card__summary">{summary}</p>
+  <a href={href} class="card__more">Read more</a>
+</article>
+
+<style>
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--navy);
+    border-radius: var(--radius);
+    padding: 1.3rem 1.4rem;
+  }
+  .card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.85rem;
+    color: var(--steel);
+    margin-bottom: 0.4rem;
+  }
+  .card__pin {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    background: #fff6e0;
+    border: 1px solid #f2d98a;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2px;
+  }
+  .card__title { margin: 0 0 0.4rem; font-size: var(--step-1); }
+  .card__title a { color: var(--navy); text-decoration: none; }
+  .card__title a:hover { color: var(--gold-deep); }
+  .card__summary { margin: 0 0 0.8rem; color: var(--ink); }
+  .card__more {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 1px;
+  }
+  .card__more:hover { color: var(--gold-deep); }
+</style>

@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Thanks" description="Your message was sent to USW Local 5025-02.">
+  <section class="thanks bay">
+    <div class="wrap">
+      <h1>Got it.</h1>
+      <p>
+        Your message is in front of the local's officers. If you left an email
+        or phone number, someone will get back to you.
+      </p>
+      <div class="thanks__actions">
+        <a href="/" class="btn">Back to home</a>
+        <a href="/news" class="btn btn--ghost">See the latest news</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks { padding-block: clamp(3rem, 8vw, 6rem); }
+  .thanks p { font-size: var(--step-1); color: var(--steel); max-width: 50ch; }
+  .thanks__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
+</style>
