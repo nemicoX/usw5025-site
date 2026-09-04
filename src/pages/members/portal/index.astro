@@ -3,12 +3,30 @@ import Base from "../../../layouts/Base.astro";
 
 // GATED PAGE. Protected by Basic-Auth on /members/portal (see scripts/gen-headers.mjs).
 // Files live in /public/members/portal/ so they sit behind the same password.
-const docs = [,
+// Grouped into sections. Add a new section by adding an object with a heading + docs.
+const sections = [
   {
-    title: "Employee Benefits Guide Milestones",
-    period: "2026",
-    desc: "Contractual milestones under the CBA.",
-    file: "/members/portal/benefits-guide-v1.pdf",
+    heading: "Benefits",
+    docs: [
+      {
+        title: "Employee Benefits Guide Milestones",
+        period: "2026",
+        desc: "Contractual milestones under the CBA.",
+        file: "/members/portal/benefits-guide-v1.pdf",
+      },
+    ],
+  },
+  {
+    heading: "ESOP Online Portal Set Up",
+    docs: [
+      // ESOP PDFs live in /public/members/portal/esop/
+      // Add one entry per document, same shape as above. Example:
+      // {
+      //   title: "Set up online acess to your ESOP account",
+      //   desc: "One line describing the document.",
+      //   file: "/members/portal/esop/esop-spd.pdf",
+      // },
+    ],
   },
 ];
 ---
@@ -22,23 +40,32 @@ const docs = [,
   </section>
 
   <div class="wrap bay">
-    <div class="docs">
-      {
-        docs.map((d) => (
-          <article class="doc">
-            <div class="doc__main">
-              <p class="doc__period">{d.period}</p>
-              <h2 class="doc__title">{d.title}</h2>
-              <p class="doc__desc">{d.desc}</p>
+    {
+      sections.map((section) => (
+        <section class="docsection">
+          <h2 class="docsection__head">{section.heading}</h2>
+          {section.docs.length > 0 ? (
+            <div class="docs">
+              {section.docs.map((d) => (
+                <article class="doc">
+                  <div class="doc__main">
+                    <p class="doc__period">{d.period}</p>
+                    <h3 class="doc__title">{d.title}</h3>
+                    <p class="doc__desc">{d.desc}</p>
+                  </div>
+                  <div class="doc__action">
+                    <a href={d.file} class="btn btn--gold" download>Download PDF</a>
+                    <a href={d.file} class="doc__view" target="_blank" rel="noopener">View in browser</a>
+                  </div>
+                </article>
+              ))}
             </div>
-            <div class="doc__action">
-              <a href={d.file} class="btn btn--gold" download>Download PDF</a>
-              <a href={d.file} class="doc__view" target="_blank" rel="noopener">View in browser</a>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+          ) : (
+            <p class="docs__empty">Documents will be posted here soon.</p>
+          )}
+        </section>
+      ))
+    }
     <p class="docs__note">Need something added here? <a href="/contact">Ask a rep</a>.</p>
   </div>
 </Base>
@@ -47,6 +74,20 @@ const docs = [,
   .pagehead { background: var(--navy); color: #fff; border-bottom: 4px solid var(--gold); padding-block: clamp(2rem, 5vw, 3.2rem); }
   .pagehead h1 { margin: 0 0 0.3rem; }
   .pagehead p { margin: 0; color: #dce7ef; }
+
+  .docsection { margin-bottom: 2.6rem; }
+  .docsection:last-of-type { margin-bottom: 0; }
+  .docsection__head {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: var(--display); font-weight: 700;
+    font-size: var(--step-2); color: var(--navy);
+    text-transform: uppercase; letter-spacing: 0.03em;
+    margin: 0 0 1.1rem; max-width: 860px;
+  }
+  .docsection__head::before {
+    content: ""; width: 34px; height: 5px; background: var(--gold); flex: none;
+  }
+
   .docs { display: grid; gap: 1.1rem; max-width: 860px; }
   .doc { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--gold); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
   .doc__main { flex: 1 1 320px; }
@@ -56,5 +97,7 @@ const docs = [,
   .doc__action { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
   .doc__view { font-family: var(--display); font-weight: 600; font-size: 0.9rem; color: var(--navy); text-decoration: none; }
   .doc__view:hover { color: var(--gold-deep); }
+
+  .docs__empty { margin: 0; max-width: 860px; color: var(--steel-soft); font-style: italic; }
   .docs__note { margin-top: 2rem; color: var(--steel); }
 </style>
