@@ -22,13 +22,43 @@ import Base from "../layouts/Base.astro";
         We negotiate and enforce the contract, handle grievances, and stand
         together on wages, benefits, safety, and fair treatment on the floor.
         Every member has a voice, and the officers answer to the membership.
-      </p>
+            </p>
 
       <div class="marker">Officers &amp; stewards</div>
-      <p>
-        Add your officer and steward list here. Names, positions, and the best
-        way to reach each person. Until then, use the
-        <a href="/contact">contact page</a> to reach the local.
+
+      <div class="roster">
+        <div class="roster__group">
+          <h2 class="roster__head">Officers</h2>
+          <ul class="roster__list">
+            <li class="roster__item">
+              <span class="roster__role">Unit Chair</span>
+              <span class="roster__name">Jeff Perry</span>
+            </li>
+            <li class="roster__item">
+              <span class="roster__role">Unit Recording Secretary</span>
+              <span class="roster__name">Brian Serrecchio</span>
+            </li>
+            <li class="roster__item">
+              <span class="roster__role">Unit Grievance Officer</span>
+              <span class="roster__name">Zach Schmidt</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="roster__group">
+          <h2 class="roster__head">Stewards</h2>
+          <ul class="roster__list">
+            <li class="roster__item">
+              <span class="roster__role">Third Shift Steward</span>
+              <span class="roster__name">Jerry Lawson</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="roster__note">
+        To reach any officer or steward, use the
+        <a href="/contact">contact page</a> and we'll route your message.
       </p>
 
       <div class="marker">Meetings</div>
@@ -58,6 +88,30 @@ import Base from "../layouts/Base.astro";
 </Base>
 
 <style>
+    .roster { display: grid; gap: 2.4rem; max-width: 720px; margin-top: 1.5rem; }
+  .roster__head {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: var(--display); font-weight: 700;
+    font-size: var(--step-2); color: var(--navy);
+    text-transform: uppercase; letter-spacing: 0.03em;
+    margin: 0 0 1rem;
+  }
+  .roster__head::before {
+    content: ""; width: 34px; height: 5px; background: var(--gold); flex: none;
+  }
+  .roster__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .roster__item {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 1rem;
+    padding: 0.7rem 0; border-bottom: 1px solid var(--line);
+  }
+  .roster__role {
+    flex: 0 0 200px;
+    font-family: var(--display); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 0.9rem; color: var(--steel-soft);
+  }
+  .roster__name { font-family: var(--display); font-weight: 700; font-size: var(--step-1); color: var(--ink); }
+  .roster__note { margin-top: 2rem; color: var(--steel); }
   .pagehead {
     background: var(--navy);
     color: #fff;
