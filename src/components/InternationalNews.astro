@@ -1,0 +1,95 @@
+---
+import { XMLParser } from "fast-xml-parser";
+
+// Latest USW International press releases, pulled at build time.
+// If the feed is unreachable, the section falls back to a plain link
+// so a feed hiccup can never break the site build.
+const FEED_URL = "https://usw.org/feed/?post_type=press-release";
+const MAX_ITEMS = 4;
+
+let items = [];
+try {
+  const res = await fetch(FEED_URL, { signal: AbortSignal.timeout(8000) });
+  if (res.ok) {
+    const xml = await res.text();
+    const parser = new XMLParser({ ignoreAttributes: false, processEntities: true });
+    const data = parser.parse(xml);
+    let raw = data?.rss?.channel?.item ?? [];
+    raw = Array.isArray(raw) ? raw : [raw];
+    items = raw
+      .slice(0, MAX_ITEMS)
+      .map((it) => ({
+        title: String(it.title ?? "").trim(),
+        link: String(it.link ?? "").trim(),
+        date: it.pubDate ? new Date(it.pubDate) : null,
+      }))
+      .filter((it) => it.title && it.link);
+  }
+} catch (e) {
+  items = [];
+}
+
+const fmtDate = (d) =>
+  d ? d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "";
+const hasFeed = items.length > 0;
+---
+
+<section class="intl">
+  <div class="marker">From USW International</div>
+
+  {hasFeed ? (
+    <ul class="intl__list">
+      {items.map((it) => (
+        <li class="intl__item">
+          <a class="intl__link" href={it.link} target="_blank" rel="noopener">
+            {it.date && <span class="intl__date">{fmtDate(it.date)}</span>}
+            <span class="intl__title">{it.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="intl__fallback">
+      The latest news and press releases from across the United Steelworkers.
+    </p>
+  )}
+
+  <a class="intl__more" href="https://usw.org/news/" target="_blank" rel="noopener">
+    All USW news at usw.org &rarr;
+  </a>
+</section>
+
+<style>
+  .intl { max-width: 860px; }
+  .marker {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: var(--display); font-weight: 700;
+    font-size: var(--step-2); color: var(--navy);
+    text-transform: uppercase; letter-spacing: 0.03em;
+    margin: 0 0 1.2rem;
+  }
+  .marker::before {
+    content: ""; width: 34px; height: 5px; background: var(--gold); flex: none;
+  }
+  .intl__list { list-style: none; margin: 0 0 1.3rem; padding: 0; }
+  .intl__item { border-bottom: 1px solid var(--line); }
+  .intl__item:first-child { border-top: 1px solid var(--line); }
+  .intl__link {
+    display: block; padding: 1rem 0; text-decoration: none; color: var(--ink);
+  }
+  .intl__link:hover .intl__title { color: var(--gold-deep); }
+  .intl__date {
+    display: block; font-family: var(--display); font-weight: 600;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--steel-soft); margin-bottom: 0.25rem;
+  }
+  .intl__title {
+    font-family: var(--display); font-weight: 700; font-size: var(--step-1);
+    color: var(--navy); line-height: 1.2; transition: color 120ms ease;
+  }
+  .intl__fallback { margin: 0 0 1.3rem; color: var(--steel); }
+  .intl__more {
+    font-family: var(--display); font-weight: 600; color: var(--navy); text-decoration: none;
+  }
+  .intl__more:hover { color: var(--gold-deep); }
+</style>

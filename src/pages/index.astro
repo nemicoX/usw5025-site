@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import AnnouncementCard from "../components/AnnouncementCard.astro";
+import InternationalNews from "../components/InternationalNews.astro";
 
 const all = await getCollection("announcements");
 const sorted = all.sort((a, b) => {
@@ -79,6 +80,10 @@ const latest = sorted.slice(0, 3);
         </li>
       </ul>
     </aside>
+  </div>
+
+  <div class="wrap bay">
+    <InternationalNews />
   </div>
 </Base>
 
